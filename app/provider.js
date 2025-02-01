@@ -1,34 +1,22 @@
 "use client";
-import { db } from "../configs/db";
-import { USER_TABLE } from "../configs/schema";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-import { eq } from "drizzle-orm";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 function provider({ children }) {
   const { user } = useUser();
+  const { isSignedIn } = useUser();
+  const router = useRouter();
 
   useEffect(() => {
     user && CheckIsNewUser();
-  }, [user]);
+    if (!isSignedIn) {
+      router.push("/");
+    }
+  }, [user, isSignedIn]);
 
   const CheckIsNewUser = async () => {
-    // const result = await db
-    //   .select()
-    //   .from(USER_TABLE)
-    //   .where(eq(USER_TABLE.email, user?.primaryEmailAddress?.emailAddress));
-
-    // if (result?.length == 0) {
-    //   const userResp = await db
-    //     .insert(USER_TABLE)
-    //     .values({
-    //       name: user?.fullName,
-    //       email: user.primaryEmailAddress?.emailAddress,
-    //     })
-    //     .returning({ id: USER_TABLE.id });
-    // }
-
     const result = await axios.post("/api/create-user", { user: user });
     console.log(result.data);
   };
