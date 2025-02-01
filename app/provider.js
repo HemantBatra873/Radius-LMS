@@ -5,16 +5,15 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 function provider({ children }) {
-  const { user } = useUser();
-  const { isSignedIn } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
   const router = useRouter();
 
   useEffect(() => {
     user && CheckIsNewUser();
-    if (!isSignedIn) {
+    if (isLoaded && !isSignedIn) {
       router.push("/");
     }
-  }, [user, isSignedIn]);
+  }, [user, isSignedIn, isLoaded]);
 
   const CheckIsNewUser = async () => {
     const result = await axios.post("/api/create-user", { user: user });

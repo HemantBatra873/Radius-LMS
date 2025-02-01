@@ -21,13 +21,32 @@ function TopicInput({ setTopic, setDifficultyLevel }) {
       />
       <h1 className="mb-3 mt-6">Select the difficulty level</h1>
       <Select onValueChange={(value) => setDifficultyLevel(value)}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full bg-black ">
+          {" "}
+          {/* Set background & text color */}
           <SelectValue placeholder="Difficulty Level" />
         </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="beginner">Beginner</SelectItem>
-          <SelectItem value="intermediate">Intermediate</SelectItem>
-          <SelectItem value="advance">Advance</SelectItem>
+        <SelectContent className="bg-secondary ">
+          {" "}
+          {/* Ensure dropdown background is black */}
+          <SelectItem
+            value="beginner"
+            className="bg-secondary  hover:bg-zinc-800"
+          >
+            Beginner
+          </SelectItem>
+          <SelectItem
+            value="intermediate"
+            className="bg-secondary  hover:bg-zinc-800"
+          >
+            Intermediate
+          </SelectItem>
+          <SelectItem
+            value="advance"
+            className="bg-secondary hover:bg-zinc-800"
+          >
+            Advance
+          </SelectItem>
         </SelectContent>
       </Select>
     </div>
