@@ -8,21 +8,21 @@ A fully AI-powered, serverless learning management system (LMS) that allows user
 
 ## Table of Contents
 
-1. [Demo & Screenshots](#demo--screenshots)
+1. [Demo and Screenshots](#demo-and-screenshots)
 2. [Features](#features)
-3. [Tech Stack & Architecture](#tech-stack--architecture)
+3. [Tech Stack and Architecture](#tech-stack-and-architecture)
 4. [Getting Started](#getting-started)
 5. [Database Schema](#database-schema)
 6. [API Endpoints](#api-endpoints)
 7. [Inngest Workflows](#inngest-workflows)
-8. [Security & Payment Integration](#security--payment-integration)
-9. [Why These Choices?](#why-these-choices)
+8. [Security and Payment Integration](#security-and-payment-integration)
+9. [Why These Choices](#why-these-choices)
 10. [Contributing](#contributing)
 11. [License](#license)
 
 ---
 
-## Demo & Screenshots
+## Demo and Screenshots
 
 Live Demo: [https://radius-lms.vercel.app/](https://radius-lms.vercel.app/)
 
@@ -37,12 +37,12 @@ Live Demo: [https://radius-lms.vercel.app/](https://radius-lms.vercel.app/)
 - **AI-Driven**: Powered by OpenAI Gemini 2.0 Pro for dynamic content generation.
 - **Serverless Architecture**: Inngest functions for asynchronous tasks.
 - **Secure Authentication**: Clerk for user management.
-- **Payment & Billing**: Stripe integration for subscription and portal management.
+- **Payment and Billing**: Stripe integration for subscription and portal management.
 - **Component Library**: shadcn/ui + Tailwind CSS for consistent styling.
 
 ---
 
-## Tech Stack & Architecture
+## Tech Stack and Architecture
 
 ```plaintext
 Next.js (App Router)
@@ -50,14 +50,13 @@ Next.js (App Router)
 ├── Inngest (Serverless functions)
 ├── NeonDB (PostgreSQL)
 │   └── Drizzle ORM for type-safe queries
-├── Clerk for Auth & User Context
+├── Clerk for Auth and User Context
 ├── Stripe for Payments
 └── OpenAI Gemini 2.0 Pro model
-
 ```
 
 1. **Next.js**: Framework for SSR/ISR and API routes. Enables fast page loads and SEO benefits.
-2. **Tailwind CSS & shadcn/ui**: Utility-first CSS with prebuilt component primitives for rapid UI development.
+2. **Tailwind CSS and shadcn/ui**: Utility-first CSS with prebuilt component primitives for rapid UI development.
 3. **Inngest**: Orchestrates background tasks, such as AI content generation, decoupling long-running jobs from HTTP requests.
 4. **NeonDB (PostgreSQL)**: Highly performant, serverless Postgres database. Chosen for ACID compliance, relational schema, and robust JSON support.
 5. **Drizzle ORM**: Lightweight, type-safe ORM that integrates seamlessly with PostgreSQL and Next.js.
@@ -67,7 +66,7 @@ Next.js (App Router)
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 1. **Clone the repo**:
 
@@ -101,7 +100,7 @@ Next.js (App Router)
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
 Defined in `configs/schema.ts` using Drizzle ORM:
 
@@ -131,11 +130,11 @@ export const STUDY_MATERIAL_TABLE = pgTable('studyMaterial', {
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 All API routes live under `src/app/api/`
 
-### 1. List & Fetch Courses
+### 1. List and Fetch Courses
 
 ```ts
 // src/app/api/courses/route.ts
@@ -143,7 +142,7 @@ export async function POST(req) { /* fetch all courses by user */ }
 export async function GET(req) { /* fetch single course by courseId */ }
 ```
 
-### 2. Create Course & Outline
+### 2. Create Course and Outline
 
 ```ts
 import { courseOutlineAiModel } from '@/configs/AiModel';
@@ -193,14 +192,14 @@ export async function POST(req) {
 
 ---
 
-## 🔄 Inngest Workflows
+## Inngest Workflows
 
 Defined in `src/inggest/functions.ts`:
 
-* **helloWorld**: Test endpoint
-* **createUser**: Persist user in DB
-* **GenerateNotes**: AI-powered chapter notes generation
-* **GenerateStudyTypeContent**: Produces flashcards, quizzes, Q\&A
+- **helloWorld**: Test endpoint
+- **createUser**: Persist user in DB
+- **GenerateNotes**: AI-powered chapter notes generation
+- **GenerateStudyTypeContent**: Produces flashcards, quizzes, Q&A
 
 Served via:
 
@@ -211,13 +210,13 @@ export const { GET, POST, PUT } = serve({ client: inngest, functions });
 
 ---
 
-## 🔒 Security & Payment Integration
+## Security and Payment Integration
 
 ### Authentication (Clerk)
 
-* Protect API routes with Clerk middleware
-* JWT-based session management
-* Support for SSO & MFA
+- Protect API routes with Clerk middleware
+- JWT-based session management
+- Support for SSO and MFA
 
 ### Payments (Stripe)
 
@@ -235,20 +234,20 @@ export async function POST(req) {
 
 ---
 
-## 🤔 Why These Choices?
+## Why These Choices?
 
 | Component       | Reasoning                                                                                                        |
-| --------------- | ---------------------------------------------------------------------------------------------------------------- |
+|-----------------|-----------------------------------------------------------------------------------------------------------------|
 | **PostgreSQL**  | ACID compliance, relational integrity, JSON support for AI-generated outlines. NeonDB offers serverless scaling. |
-| **Drizzle ORM** | Type-safe, lightweight, modern integration with Next.js.                                                         |
-| **Inngest**     | Efficient background processing for long-running AI tasks.                                                       |
-| **Clerk**       | Comprehensive auth solution with built-in security best practices.                                               |
-| **Stripe**      | Industry-standard for subscription & billing management.                                                         |
-| **Gemini 2.0**  | High-quality LLM for educational content generation.                                                             |
+| **Drizzle ORM** | Type-safe, lightweight, modern integration with Next.js.                                                        |
+| **Inngest**     | Efficient background processing for long-running AI tasks.                                                      |
+| **Clerk**       | Comprehensive auth solution with built-in security best practices.                                              |
+| **Stripe**      | Industry-standard for subscription and billing management.                                                      |
+| **Gemini 2.0**  | High-quality LLM for educational content generation.                                                            |
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/YourFeature`)
@@ -258,6 +257,6 @@ export async function POST(req) {
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
