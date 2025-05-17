@@ -8,10 +8,10 @@ A fully AI-powered, serverless learning management system (LMS) that allows user
 
 ## 📋 Table of Contents
 
-1. [Demo & Screenshots](#demo--screenshots)
-2. [Features](#features)
-3. [Tech Stack & Architecture](#tech-stack--architecture)
-4. [Getting Started](#getting-started)
+1. [Demo & Screenshots](-demo--screenshots)
+2. [Features](-features)
+3. [Tech Stack & Architecture](-tech-stack--architecture)
+4. [Getting Started](-#getting-started)
 5. [Database Schema](#database-schema)
 6. [API Endpoints](#api-endpoints)
 7. [Inngest Workflows](#inngest-workflows)
