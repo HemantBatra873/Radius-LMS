@@ -2,16 +2,16 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![Next.js](https://img.shields.io/badge/Next.js-13.5-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-green) ![Drizzle ORM](https://img.shields.io/badge/Drizzle-ORM-yellow) ![NeonDB](https://img.shields.io/badge/NeonDB-PostgreSQL-lightgrey)
 
-A fully AI-powered, serverless learning management system (LMS) that allows users to generate personalized study materials—notes, flashcards, quizzes, and Q\&A—based on their syllabus details, skill level, and preferred style.
+A fully AI-powered, serverless learning management system (LMS) that allows users to generate personalized study materials—notes, flashcards, quizzes, and Q&A—based on their syllabus details, skill level, and preferred style.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-1. [Demo & Screenshots](-demo--screenshots)
-2. [Features](-features)
-3. [Tech Stack & Architecture](-tech-stack--architecture)
-4. [Getting Started](-#getting-started)
+1. [Demo & Screenshots](#demo--screenshots)
+2. [Features](#features)
+3. [Tech Stack & Architecture](#tech-stack--architecture)
+4. [Getting Started](#getting-started)
 5. [Database Schema](#database-schema)
 6. [API Endpoints](#api-endpoints)
 7. [Inngest Workflows](#inngest-workflows)
@@ -22,27 +22,27 @@ A fully AI-powered, serverless learning management system (LMS) that allows user
 
 ---
 
-## 🎬 Demo & Screenshots
+## Demo & Screenshots
 
 Live Demo: [https://radius-lms.vercel.app/](https://radius-lms.vercel.app/)
+
 ![Landing](https://github.com/user-attachments/assets/c93ec37a-d8c2-490e-9e33-a5871dd61826)
 ![DashBoard](https://github.com/user-attachments/assets/d6ed23b3-8a4d-4cd9-96bc-5e525dcb6676)
 
+---
+
+## Features
+
+- **Personalized Study Materials**: Generate notes, flashcards, quizzes, and Q&A for any topic.
+- **AI-Driven**: Powered by OpenAI Gemini 2.0 Pro for dynamic content generation.
+- **Serverless Architecture**: Inngest functions for asynchronous tasks.
+- **Secure Authentication**: Clerk for user management.
+- **Payment & Billing**: Stripe integration for subscription and portal management.
+- **Component Library**: shadcn/ui + Tailwind CSS for consistent styling.
 
 ---
 
-## ✨ Features
-
-* **Personalized Study Materials**: Generate notes, flashcards, quizzes, and Q\&A for any topic.
-* **AI-Driven**: Powered by OpenAI Gemini 2.0 Pro for dynamic content generation.
-* **Serverless Architecture**: Inngest functions for asynchronous tasks.
-* **Secure Authentication**: Clerk for user management.
-* **Payment & Billing**: Stripe integration for subscription and portal management.
-* **Component Library**: shadcn/ui + Tailwind CSS for consistent styling.
-
----
-
-## 🧰 Tech Stack & Architecture
+## Tech Stack & Architecture
 
 ```plaintext
 Next.js (App Router)
@@ -53,6 +53,7 @@ Next.js (App Router)
 ├── Clerk for Auth & User Context
 ├── Stripe for Payments
 └── OpenAI Gemini 2.0 Pro model
+
 ```
 
 1. **Next.js**: Framework for SSR/ISR and API routes. Enables fast page loads and SEO benefits.
