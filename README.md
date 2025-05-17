@@ -24,10 +24,10 @@ A fully AI-powered, serverless learning management system (LMS) that allows user
 
 ## 🎬 Demo & Screenshots
 
-Live Demo: [https://your-vercel-app.vercel.app](https://your-vercel-app.vercel.app)
+Live Demo: [https://radius-lms.vercel.app/](https://radius-lms.vercel.app/)
+![Landing](https://github.com/user-attachments/assets/c93ec37a-d8c2-490e-9e33-a5871dd61826)
+![DashBoard](https://github.com/user-attachments/assets/d6ed23b3-8a4d-4cd9-96bc-5e525dcb6676)
 
-![Dashboard](./screenshots/dashboard.png)
-![Course Creation](./screenshots/create-course.png)
 
 ---
 
@@ -71,14 +71,14 @@ Next.js (App Router)
 1. **Clone the repo**:
 
    ```bash
-   git clone https://github.com/your-username/radius-lms.git
+   git clone https://github.com/HemantBatra873/radius-lms.git
    cd radius-lms
    ```
 
 2. **Install dependencies**:
 
    ```bash
-   yarn install
+   npm install
    ```
 
 3. **Environment variables**:
@@ -89,14 +89,13 @@ Next.js (App Router)
    CLERK_SECRET_KEY=
    STRIPE_SECRET_KEY=
    DATABASE_URL=
-   OPENAI_API_KEY=
    INNGEST_API_KEY=
    ```
 
 4. **Run locally**:
 
    ```bash
-   yarn dev
+   npm run dev
    ```
 
 ---
