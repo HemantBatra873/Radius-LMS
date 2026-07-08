@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { toast } from "sonner";
 
 function Flashcards() {
   const { courseId } = useParams();
@@ -19,13 +20,20 @@ function Flashcards() {
   const [stepCount, setStepCount] = useState(-1);
 
   const getFlashcards = async () => {
-    //fetch data from API
-    const result = await axios.post("/api/study-type", {
-      courseId: courseId,
-      studyType: "Flashcards",
-    });
+    try {
+      const result = await axios.post("/api/study-type", {
+        courseId: courseId,
+        studyType: "Flashcards",
+      });
 
-    setFlashcards(result?.data);
+      setFlashcards(result?.data);
+    } catch (error) {
+      console.error(error);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to fetch flashcards. Please try again.";
+      toast.error(errorMessage);
+    }
   };
   useEffect(() => {
     getFlashcards();

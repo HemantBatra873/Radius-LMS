@@ -2,8 +2,9 @@ import { db } from "@/configs/db";
 import { CHAPTER_NOTES_NAME, STUDY_TYPE_CONTENT_TABLE } from "@/configs/schema";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { withErrorHandler } from "@/lib/api-handler";
 
-export async function POST(req) {
+export const POST = withErrorHandler(async (req) => {
   const { courseId, studyType } = await req.json();
   if (studyType == "ALL") {
     const notes = await db
@@ -47,4 +48,4 @@ export async function POST(req) {
 
     return NextResponse.json(material[0] ?? []);
   }
-}
+});

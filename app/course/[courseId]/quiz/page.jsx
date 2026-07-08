@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import QuizCardItem from "./_components/QuizCardItem";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { toast } from "sonner";
 
 function Quiz() {
   const { courseId } = useParams();
@@ -15,13 +16,21 @@ function Quiz() {
   const router = useRouter();
 
   const getQuiz = async () => {
-    const result = await axios.post("/api/study-type", {
-      courseId: courseId,
-      studyType: "Quiz",
-    });
+    try {
+      const result = await axios.post("/api/study-type", {
+        courseId: courseId,
+        studyType: "Quiz",
+      });
 
-    setQuizData(result.data);
-    setQuiz(result.data?.content?.questions);
+      setQuizData(result.data);
+      setQuiz(result.data?.content?.questions);
+    } catch (error) {
+      console.error(error);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to fetch quiz data. Please try again.";
+      toast.error(errorMessage);
+    }
   };
 
   const checkAnswer = (userAnswer, quiz) => {

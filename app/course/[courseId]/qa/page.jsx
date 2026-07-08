@@ -5,6 +5,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import QaCardItem from "./_components/QaCardItem";
+import { toast } from "sonner";
 
 function Qa() {
   const { courseId } = useParams();
@@ -18,13 +19,21 @@ function Qa() {
 
   // Fetch quiz data from the API
   const getQa = async () => {
-    const result = await axios.post("/api/study-type", {
-      courseId: courseId,
-      studyType: "QnA",
-    });
+    try {
+      const result = await axios.post("/api/study-type", {
+        courseId: courseId,
+        studyType: "QnA",
+      });
 
-    setQa(result.data?.content?.questions);
-    console.log(result.data);
+      setQa(result.data?.content?.questions);
+      console.log(result.data);
+    } catch (error) {
+      console.error(error);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to fetch QA data. Please try again.";
+      toast.error(errorMessage);
+    }
   };
 
   return (

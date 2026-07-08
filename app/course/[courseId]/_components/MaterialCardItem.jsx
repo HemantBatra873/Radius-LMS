@@ -24,15 +24,24 @@ function MaterialCardItem({
       chapters += (chapter?.chapter_title || chapter?.chapterTitle) + ", ";
     });
 
-    const result = await axios.post("/api/study-type-content", {
-      courseId,
-      chapters,
-      type: item.name,
-    });
+    try {
+      const result = await axios.post("/api/study-type-content", {
+        courseId,
+        chapters,
+        type: item.name,
+      });
 
-    setLoading(false);
-    refreshData(true);
-    toast("Content generated successfully");
+      setLoading(false);
+      refreshData(true);
+      toast("Content generated successfully");
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to generate content. Please try again.";
+      toast.error(errorMessage);
+    }
   };
 
   return (

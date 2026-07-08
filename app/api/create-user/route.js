@@ -1,7 +1,8 @@
 import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
+import { withErrorHandler } from "@/lib/api-handler";
 
-export async function POST(req) {
+export const POST = withErrorHandler(async (req) => {
   const { user } = await req.json();
   const result = await inngest.send({
     name: "user/create",
@@ -10,4 +11,4 @@ export async function POST(req) {
     },
   });
   return NextResponse.json({ result: result });
-}
+});

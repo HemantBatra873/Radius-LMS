@@ -3,8 +3,9 @@ import { db } from "@/configs/db";
 import { STUDY_MATERIAL_TABLE } from "@/configs/schema";
 import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
+import { withErrorHandler } from "@/lib/api-handler";
 
-export async function POST(req) {
+export const POST = withErrorHandler(async (req) => {
   const { courseId, courseType, topic, difficultyLevel, createdBy } =
     await req.json();
 
@@ -43,4 +44,4 @@ export async function POST(req) {
   });
 
   return NextResponse.json({ result: dbResult[0] });
-}
+});

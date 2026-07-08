@@ -4,6 +4,7 @@ import axios from "axios";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 function ViewNotes() {
   const { courseId } = useParams();
@@ -16,12 +17,20 @@ function ViewNotes() {
   }, []);
 
   const getNotes = async () => {
-    const result = await axios.post("/api/study-type", {
-      courseId: courseId,
-      studyType: "notes",
-    });
+    try {
+      const result = await axios.post("/api/study-type", {
+        courseId: courseId,
+        studyType: "notes",
+      });
 
-    setNotes(result?.data);
+      setNotes(result?.data);
+    } catch (error) {
+      console.error(error);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to fetch notes. Please try again.";
+      toast.error(errorMessage);
+    }
   };
 
   return (

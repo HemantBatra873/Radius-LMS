@@ -2,8 +2,9 @@ import { db } from "@/configs/db";
 import { STUDY_TYPE_CONTENT_TABLE } from "@/configs/schema";
 import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
+import { withErrorHandler } from "@/lib/api-handler";
 
-export async function POST(req) {
+export const POST = withErrorHandler(async (req) => {
   const { courseId, chapters, type } = await req.json();
   const PROMPT =
     type == "Flashcards"
@@ -40,4 +41,4 @@ export async function POST(req) {
   });
 
   return NextResponse.json(result[0].id);
-}
+});

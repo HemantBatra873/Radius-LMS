@@ -1,26 +1,7 @@
-const {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} = require("@google/generative-ai");
+import { GoogleGenAI } from "@google/genai";
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey);
-
-const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  systemInstruction: "All the results must be in JSON format",
-});
-
-const modelForNotes = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  systemInstruction:
-    "All the results must be in HTML format without any html head body or title tags",
-});
-
-const modelForStudyType = genAI.getGenerativeModel({
-  model: "gemini-2.0-flash-exp",
-});
+const genAI = new GoogleGenAI({ apiKey });
 
 const generationConfig = {
   temperature: 1,
@@ -37,9 +18,36 @@ const generationConfigForNotes = {
   maxOutputTokens: 8192,
 };
 
-export const courseOutlineAiModel = model.startChat({
-  generationConfig,
-  history: [
+function createChatModel(modelName, systemInstruction, history, configOptions) {
+  return {
+    sendMessage: async (prompt) => {
+      const contents = [
+        ...history,
+        { role: "user", parts: [{ text: prompt }] },
+      ];
+
+      const response = await genAI.models.generateContent({
+        model: modelName,
+        contents: contents,
+        config: {
+          ...(systemInstruction ? { systemInstruction } : {}),
+          ...configOptions,
+        },
+      });
+
+      return {
+        response: {
+          text: () => response.text || "",
+        },
+      };
+    },
+  };
+}
+
+export const courseOutlineAiModel = createChatModel(
+  "gemini-flash-latest",
+  "All the results must be in JSON format",
+  [
     {
       role: "user",
       parts: [
@@ -57,11 +65,13 @@ export const courseOutlineAiModel = model.startChat({
       ],
     },
   ],
-});
+  generationConfig
+);
 
-export const generateNotesAiModel = modelForNotes.startChat({
-  generationConfigForNotes,
-  history: [
+export const generateNotesAiModel = createChatModel(
+  "gemini-flash-latest",
+  "All the results must be in HTML format without any html head body or title tags",
+  [
     {
       role: "user",
       parts: [
@@ -79,11 +89,13 @@ export const generateNotesAiModel = modelForNotes.startChat({
       ],
     },
   ],
-});
+  generationConfigForNotes
+);
 
-export const generateStudyTypeContentAiModel = modelForStudyType.startChat({
-  generationConfig,
-  history: [
+export const generateStudyTypeContentAiModel = createChatModel(
+  "gemini-flash-latest",
+  null,
+  [
     {
       role: "user",
       parts: [
@@ -101,11 +113,13 @@ export const generateStudyTypeContentAiModel = modelForStudyType.startChat({
       ],
     },
   ],
-});
+  generationConfig
+);
 
-export const generateQuizAiModel = modelForStudyType.startChat({
-  generationConfig,
-  history: [
+export const generateQuizAiModel = createChatModel(
+  "gemini-flash-latest",
+  null,
+  [
     {
       role: "user",
       parts: [
@@ -123,11 +137,13 @@ export const generateQuizAiModel = modelForStudyType.startChat({
       ],
     },
   ],
-});
+  generationConfig
+);
 
-export const generateQaAiModel = modelForStudyType.startChat({
-  generationConfig,
-  history: [
+export const generateQaAiModel = createChatModel(
+  "gemini-flash-latest",
+  null,
+  [
     {
       role: "user",
       parts: [
@@ -145,7 +161,7 @@ export const generateQaAiModel = modelForStudyType.startChat({
       ],
     },
   ],
-});
+  generationConfig
+);
 
-// const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
-// console.log(result.response.text());
+

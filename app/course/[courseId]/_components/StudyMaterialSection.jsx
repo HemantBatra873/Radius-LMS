@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import MaterialCardItem from "./MaterialCardItem";
 import axios from "axios";
 import Link from "next/link";
+import { toast } from "sonner";
 
 function StudyMaterialSection({ courseId, course }) {
   const [studyTypeContent, setStudyTypeContent] = useState();
@@ -38,12 +39,19 @@ function StudyMaterialSection({ courseId, course }) {
   ];
 
   const getStudyMaterial = async () => {
-    const result = await axios.post("/api/study-type", {
-      courseId: courseId,
-      studyType: "ALL",
-    });
+    try {
+      const result = await axios.post("/api/study-type", {
+        courseId: courseId,
+        studyType: "ALL",
+      });
 
-    setStudyTypeContent(result.data);
+      setStudyTypeContent(result.data);
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to fetch study materials. Please try again.";
+      toast.error(errorMessage);
+    }
   };
 
   useEffect(() => {

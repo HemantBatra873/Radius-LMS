@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import { toast } from "sonner";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import CourseIntroCard from "./_components/CourseIntroCard";
@@ -16,8 +17,12 @@ function Course() {
   }, []);
 
   const getCourses = async () => {
-    const result = await axios.get("/api/courses?courseId=" + courseId);
-    setCourse(result.data.result);
+    try {
+      const result = await axios.get("/api/courses?courseId=" + courseId);
+      setCourse(result.data.result);
+    } catch (error) {
+      toast("Error fetching course information");
+    }
   };
 
   return (

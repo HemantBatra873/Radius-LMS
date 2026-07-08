@@ -31,17 +31,26 @@ function Create() {
   const generateCourseOutline = async () => {
     const courseId = uuidv4();
     setLoading(true);
-    const result = await axios.post("/api/generate-course-outline", {
-      courseId: courseId,
-      ...formData,
-      createdBy: user?.primaryEmailAddress?.emailAddress,
-    });
-    setLoading(false);
-    router.replace("/dashboard");
-    //show toast notification
-    toast(
-      "Your study material is being generated. Please click the refresh button to check for updates."
-    );
+    try {
+      const result = await axios.post("/api/generate-course-outline", {
+        courseId: courseId,
+        ...formData,
+        createdBy: user?.primaryEmailAddress?.emailAddress,
+      });
+      setLoading(false);
+      router.replace("/dashboard");
+      //show toast notification
+      toast(
+        "Your study material is being generated. Please click the refresh button to check for updates."
+      );
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to generate course outline. Please try again.";
+      toast.error(errorMessage);
+    }
   };
 
   return (
