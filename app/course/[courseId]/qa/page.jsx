@@ -25,7 +25,7 @@ function Qa() {
         studyType: "QnA",
       });
 
-      setQa(result.data?.content?.questions);
+      setQa(result.data?.content?.questions || result.data?.content || []);
       console.log(result.data);
     } catch (error) {
       console.error(error);

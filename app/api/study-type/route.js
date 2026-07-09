@@ -8,13 +8,20 @@ export const POST = withErrorHandler(async (req) => {
   const { courseId, studyType } = await req.json();
   if (studyType == "ALL") {
     const notes = await db
-      .select()
+      .select({
+        id: CHAPTER_NOTES_NAME.id,
+        courseId: CHAPTER_NOTES_NAME.courseId,
+      })
       .from(CHAPTER_NOTES_NAME)
       .where(eq(CHAPTER_NOTES_NAME.courseId, courseId));
 
     // Get all other study types
     const contentList = await db
-      .select()
+      .select({
+        id: STUDY_TYPE_CONTENT_TABLE.id,
+        type: STUDY_TYPE_CONTENT_TABLE.type,
+        status: STUDY_TYPE_CONTENT_TABLE.status,
+      })
       .from(STUDY_TYPE_CONTENT_TABLE)
       .where(eq(STUDY_TYPE_CONTENT_TABLE.courseId, courseId));
 

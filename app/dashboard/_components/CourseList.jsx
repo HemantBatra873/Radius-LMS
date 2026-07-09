@@ -6,6 +6,7 @@ import CourseCardItem from "./CourseCardItem";
 import { Button } from "@/components/ui/button";
 import { RefreshCcw } from "lucide-react";
 import { CourseCountContext } from "@/app/_context/CourseCountContext";
+import { toast } from "sonner";
 
 function CourseList() {
   const { user } = useUser();
@@ -20,13 +21,22 @@ function CourseList() {
   // Fetch all courses created by the current user
   const GetCourseList = async () => {
     setLoading(true);
-    const result = await axios.post("/api/courses", {
-      createdBy: user?.primaryEmailAddress?.emailAddress,
-    });
+    try {
+      const result = await axios.post("/api/courses", {
+        createdBy: user?.primaryEmailAddress?.emailAddress,
+      });
 
-    setCourseList(result.data.result);
-    setLoading(false);
-    setTotalCourse(result.data.result?.length);
+      setCourseList(result.data.result);
+      setTotalCourse(result.data.result?.length);
+    } catch (error) {
+      console.error(error);
+      const errorMessage =
+        error?.response?.data?.error ||
+        "Failed to fetch your study material. Please try again.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
