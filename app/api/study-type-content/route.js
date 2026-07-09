@@ -3,6 +3,7 @@ import { STUDY_TYPE_CONTENT_TABLE } from "@/configs/schema";
 import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
 import { withErrorHandler } from "@/lib/api-handler";
+import { and, eq } from "drizzle-orm";
 
 export const POST = withErrorHandler(async (req) => {
   const { courseId, chapters, type } = await req.json();
@@ -18,6 +19,21 @@ export const POST = withErrorHandler(async (req) => {
       : "Generate questions and answers for the topic" +
         chapters +
         " in JSON format . (Max 10)";
+
+  // Check if record already exists
+  const existingRecord = await db
+    .select()
+    .from(STUDY_TYPE_CONTENT_TABLE)
+    .where(
+      and(
+        eq(STUDY_TYPE_CONTENT_TABLE.courseId, courseId),
+        eq(STUDY_TYPE_CONTENT_TABLE.type, type)
+      )
+    );
+
+  if (existingRecord.length > 0) {
+    return NextResponse.json(existingRecord[0].id);
+  }
 
   //Insert record to DB set status as generating
   const result = await db

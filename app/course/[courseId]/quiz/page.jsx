@@ -23,7 +23,7 @@ function Quiz() {
       });
 
       setQuizData(result.data);
-      setQuiz(result.data?.content?.questions);
+      setQuiz(result.data?.content?.questions || result.data?.content || []);
     } catch (error) {
       console.error(error);
       const errorMessage =
