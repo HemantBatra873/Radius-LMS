@@ -45,7 +45,7 @@ function createChatModel(modelName, systemInstruction, history, configOptions) {
 }
 
 export const courseOutlineAiModel = createChatModel(
-  "gemini-flash-latest",
+  "gemini-flash-lite-latest",
   "All the results must be in JSON format",
   [
     {
@@ -69,7 +69,7 @@ export const courseOutlineAiModel = createChatModel(
 );
 
 export const generateNotesAiModel = createChatModel(
-  "gemini-flash-latest",
+  "gemini-flash-lite-latest",
   "All the results must be in HTML format without any html head body or title tags",
   [
     {
@@ -93,7 +93,7 @@ export const generateNotesAiModel = createChatModel(
 );
 
 export const generateStudyTypeContentAiModel = createChatModel(
-  "gemini-flash-latest",
+  "gemini-flash-lite-latest",
   null,
   [
     {
@@ -117,7 +117,7 @@ export const generateStudyTypeContentAiModel = createChatModel(
 );
 
 export const generateQuizAiModel = createChatModel(
-  "gemini-flash-latest",
+  "gemini-flash-lite-latest",
   null,
   [
     {
@@ -141,7 +141,7 @@ export const generateQuizAiModel = createChatModel(
 );
 
 export const generateQaAiModel = createChatModel(
-  "gemini-flash-latest",
+  "gemini-flash-lite-latest",
   null,
   [
     {
